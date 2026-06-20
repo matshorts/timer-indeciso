@@ -269,6 +269,23 @@
       z-index: 5;
     }
 
+    .delay-button.tiny-delay {
+      min-height: 46px;
+      font-size: 15px;
+      padding: 8px 10px;
+    }
+
+    .delay-button.micro-delay {
+      min-height: 32px;
+      font-size: 11px;
+      padding: 5px 7px;
+      box-shadow: 2px 2px 0 var(--line);
+    }
+
+    .delay-button.fake-normal-delay {
+      min-height: 82px;
+    }
+
     @keyframes wiggleDelay {
       0%, 100% { rotate: 0deg; }
       25% { rotate: -1.5deg; }
@@ -794,7 +811,7 @@
     }
 
     .modal {
-      width: min(760px, 100%);
+      width: min(780px, 100%);
       max-height: 88vh;
       overflow: auto;
       background: white;
@@ -802,6 +819,88 @@
       box-shadow: 8px 8px 0 var(--line);
       padding: 24px;
       text-align: left;
+    }
+
+    .intro-hero {
+      border: 3px solid var(--line);
+      padding: 16px;
+      box-shadow: 5px 5px 0 var(--line);
+      margin: 16px 0;
+      background: white;
+      position: relative;
+    }
+
+    .intro-hero-title {
+      font-size: 22px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .intro-hero-copy {
+      color: var(--muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .intro-story-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .intro-card {
+      border: 2px solid var(--line);
+      padding: 12px;
+      min-height: 130px;
+      box-shadow: 3px 3px 0 var(--line);
+      background: #fff;
+    }
+
+    .intro-card-icon {
+      font-size: 34px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .intro-card-title {
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .intro-card-text {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .intro-steps {
+      border: 2px dashed var(--line);
+      padding: 14px;
+      margin-top: 14px;
+    }
+
+    .intro-step {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin: 10px 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .intro-step-number {
+      min-width: 26px;
+      height: 26px;
+      border: 2px solid var(--line);
+      display: grid;
+      place-items: center;
+      font-weight: bold;
+      color: var(--ink);
+      background: white;
     }
 
     .modal p,
@@ -879,6 +978,10 @@
 
       .mission-card::before {
         right: -10px;
+      }
+
+      .intro-story-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -1099,6 +1202,7 @@
 
       <div class="buttons" style="justify-content: center;">
         <button class="primary" onclick="resetAll()">Nuova indecisione</button>
+        <button onclick="openInstagram()">Seguimi</button>
       </div>
     </section>
 
@@ -1141,6 +1245,7 @@
 
       <div class="buttons" style="justify-content: center;">
         <button class="primary" onclick="resetAll()">Ci riprovo</button>
+        <button onclick="openInstagram()">Seguimi</button>
       </div>
     </section>
   </main>
@@ -1149,44 +1254,61 @@
     <div class="modal">
       <h2 id="introTitle">Prima di iniziare</h2>
 
-      <p>
-        Benvenuto nel <strong>Timer (In)deciso</strong>.
-      </p>
+      <div class="intro-hero">
+        <div class="intro-hero-title">Benvenuto nel Timer (In)deciso</div>
+        <p class="intro-hero-copy">
+          Se sei qui, probabilmente sei un procrastinatore seriale come me.
+          Questa volta però non c’è in ballo solo la tua decisione.
+        </p>
+      </div>
 
-      <p>
-        Se sei qui, probabilmente sei un procrastinatore seriale come me.
-      </p>
+      <div class="intro-story-grid">
+        <div class="intro-card">
+          <div class="intro-card-icon">🧠</div>
+          <div class="intro-card-title">Il problema</div>
+          <div class="intro-card-text">
+            Dovevi decidere una cosa. Il tuo cervello ha aperto una riunione interna non richiesta.
+          </div>
+        </div>
 
-      <p>
-        Dovevi prendere una decisione, ma il tuo cervello ha aperto una riunione
-        interna non richiesta, con ansia, dubbi, contro-dubbi e almeno una persona
-        immaginaria che dice “forse meglio pensarci ancora”.
-      </p>
+        <div class="intro-card">
+          <div class="intro-card-icon">🐢</div>
+          <div class="intro-card-title">La vittima</div>
+          <div class="intro-card-text">
+            Una tartarughina sta cercando di arrivare all’oceano. È lenta, tenera e ignara.
+          </div>
+        </div>
 
-      <p>
-        Questa volta però non riguarda solo te.
-      </p>
+        <div class="intro-card">
+          <div class="intro-card-icon">🐦</div>
+          <div class="intro-card-title">La minaccia</div>
+          <div class="intro-card-text">
+            Alla fine del percorso c’è un gabbiano con pessime intenzioni.
+          </div>
+        </div>
+      </div>
 
-      <p>
-        C’è una tartarughina che sta cercando di arrivare all’oceano. È lenta,
-        tenera e completamente ignara del fatto che alla fine del percorso c’è
-        un gabbiano con pessime intenzioni.
-      </p>
+      <div class="intro-steps">
+        <div class="intro-step">
+          <div class="intro-step-number">1</div>
+          <div>Rispondi alle domande e ricevi una scadenza.</div>
+        </div>
 
-      <p>
-        Il tuo obiettivo è prendere una decisione prima che la tartarughina arrivi
-        al traguardo.
-      </p>
+        <div class="intro-step">
+          <div class="intro-step-number">2</div>
+          <div>La tartarughina avanza verso il traguardo mentre il timer scorre.</div>
+        </div>
 
-      <p>
-        Rispondi alle domande, ricevi una scadenza e ogni giorno completa una piccola
-        missione pratica per sbloccarti.
-      </p>
+        <div class="intro-step">
+          <div class="intro-step-number">3</div>
+          <div>Ogni giorno trovi una missione pratica per sbloccarti.</div>
+        </div>
 
-      <p>
-        Se decidi in tempo, la salvi e vinci un 🍪.<br />
-        Se non decidi, il gabbiano ringrazia.
-      </p>
+        <div class="intro-step">
+          <div class="intro-step-number">4</div>
+          <div>Se decidi in tempo, la salvi e vinci un 🍪. Se non decidi, il gabbiano ringrazia.</div>
+        </div>
+      </div>
 
       <div class="note">
         Nessuna pressione. A parte la vita della tartarughina.
@@ -1205,6 +1327,7 @@
   </div>
 
   <script>
+    const INSTAGRAM_URL = "https://www.instagram.com/matshorts";
     const DEBUG_KEYWORD = "debugturtle";
     const DEBUG_DURATION_MS = 2 * 60 * 1000;
     const PANIC_THRESHOLD_MS = 60 * 1000;
@@ -1356,6 +1479,10 @@
     function closeIntroModal() {
       introModal.classList.remove("show");
       localStorage.setItem(INTRO_SEEN_KEY, "true");
+    }
+
+    function openInstagram() {
+      window.open(INSTAGRAM_URL, "_blank", "noopener,noreferrer");
     }
 
     introModal.addEventListener("click", function(event) {
@@ -1672,28 +1799,48 @@
     function resetRunawayButton() {
       delayAttempts = 0;
       delayButton.textContent = "Rimanda";
-      delayButton.style.transform = "translate(0, 0)";
+      delayButton.style.transform = "translate(0, 0) scale(1)";
+      delayButton.classList.remove("tiny-delay", "micro-delay", "fake-normal-delay");
     }
 
     function moveDelayButton() {
       delayAttempts += 1;
 
-      const maxX = window.innerWidth < 600 ? 80 : 190;
-      const maxY = window.innerWidth < 600 ? 70 : 110;
+      delayButton.classList.remove("tiny-delay", "micro-delay", "fake-normal-delay");
+
+      const maxX = window.innerWidth < 600 ? 95 : 230;
+      const maxY = window.innerWidth < 600 ? 85 : 135;
 
       const x = Math.floor(Math.random() * maxX * 2) - maxX;
       const y = Math.floor(Math.random() * maxY * 2) - maxY;
 
-      delayButton.style.transform = "translate(" + x + "px, " + y + "px)";
+      const randomSize = Math.random();
+      let scale = 1;
+
+      if (randomSize < 0.25) {
+        delayButton.classList.add("micro-delay");
+        scale = 0.42;
+      } else if (randomSize < 0.6) {
+        delayButton.classList.add("tiny-delay");
+        scale = 0.62;
+      } else {
+        delayButton.classList.add("fake-normal-delay");
+        scale = 1;
+      }
+
+      delayButton.style.transform = "translate(" + x + "px, " + y + "px) scale(" + scale + ")";
 
       const messages = [
         "Rimanda",
         "No.",
-        "Bel tentativo.",
+        "Nope.",
+        "Troppo lento.",
+        "Quasi.",
+        "Mini rimando.",
+        "Piccolissimo.",
+        "Il gabbiano approva.",
         "Non oggi.",
-        "Dai, su.",
-        "Continua pure.",
-        "Il gabbiano approva."
+        "Dai, su."
       ];
 
       delayButton.textContent = messages[delayAttempts % messages.length];
@@ -1704,7 +1851,8 @@
         "Il gabbiano approva il tuo comportamento.",
         "Io cammino. Tu scappi.",
         "Molto maturo.",
-        "Ancora? Davvero?"
+        "Ancora? Davvero?",
+        "Sta diventando minuscolo come la tua voglia di decidere."
       ];
 
       timerBubble.textContent = turtleMessages[(delayAttempts - 1) % turtleMessages.length];
@@ -1715,6 +1863,11 @@
     });
 
     delayButton.addEventListener("touchstart", function(event) {
+      event.preventDefault();
+      moveDelayButton();
+    });
+
+    delayButton.addEventListener("click", function(event) {
       event.preventDefault();
       moveDelayButton();
     });
