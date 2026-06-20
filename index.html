@@ -14,14 +14,11 @@
       --soft: #f5f5f5;
       --line: #202124;
       --ghost: #d9d9d9;
+      --sand: #fafafa;
     }
 
     * {
       box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
     }
 
     body {
@@ -37,7 +34,7 @@
     }
 
     .app {
-      width: min(920px, 100%);
+      width: min(960px, 100%);
       border: 3px solid var(--line);
       padding: 26px;
       position: relative;
@@ -184,12 +181,6 @@
       display: inline-block;
     }
 
-    .timer-layout {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-
     .decision-name {
       display: inline-block;
       border: 2px dashed var(--line);
@@ -240,6 +231,16 @@
       margin-top: 18px;
     }
 
+    .restart-row {
+      margin-top: 14px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .restart-button {
+      min-width: 220px;
+    }
+
     .big-action {
       min-height: 82px;
       font-size: clamp(20px, 4vw, 34px);
@@ -285,7 +286,7 @@
       padding: 18px;
       background: #fff;
       box-shadow: 5px 5px 0 var(--line);
-      margin-top: 18px;
+      margin-top: 22px;
       position: relative;
     }
 
@@ -300,153 +301,42 @@
       background: white;
     }
 
-    .mission-roast {
+    .mission-joke {
       font-weight: bold;
       font-size: 18px;
       line-height: 1.45;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
-    .mission-science {
-      color: var(--muted);
+    .mission-section {
+      margin-top: 12px;
       line-height: 1.55;
+      color: var(--muted);
     }
 
-    .mission-science strong {
+    .mission-section strong {
       color: var(--ink);
+      display: block;
+      margin-bottom: 4px;
+      text-transform: uppercase;
     }
 
-    .turtle-stage {
-      min-height: 220px;
+    .rescue-stage {
+      min-height: 250px;
       border: 3px solid var(--line);
       margin-top: 24px;
       position: relative;
       overflow: hidden;
       background:
-        linear-gradient(to bottom, transparent 0 78%, #fafafa 78% 100%);
-    }
-
-    .stage-floor {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 28px;
-      height: 3px;
-      background: repeating-linear-gradient(
-        to right,
-        var(--line) 0 24px,
-        transparent 24px 44px
-      );
-    }
-
-    .turtle {
-      position: absolute;
-      left: 50%;
-      bottom: 38px;
-      width: 150px;
-      height: 112px;
-      transform: translateX(-50%);
-      image-rendering: pixelated;
-      transition: transform 0.2s ease, opacity 0.2s ease;
-      animation: turtleIdle 2.6s ease-in-out infinite;
-    }
-
-    @keyframes turtleIdle {
-      0%, 100% {
-        transform: translateX(-50%) translateY(0);
-      }
-      50% {
-        transform: translateX(-50%) translateY(-5px);
-      }
-    }
-
-    .turtle-shell {
-      position: absolute;
-      left: 30px;
-      bottom: 24px;
-      width: 76px;
-      height: 52px;
-      background: var(--ink);
-      border-radius: 38px 38px 10px 10px;
-    }
-
-    .turtle-shell::after {
-      content: "";
-      position: absolute;
-      left: 15px;
-      top: 11px;
-      width: 44px;
-      height: 24px;
-      border: 2px dashed #fff;
-      border-radius: 50%;
-    }
-
-    .turtle-body {
-      position: absolute;
-      left: 20px;
-      bottom: 20px;
-      width: 92px;
-      height: 20px;
-      background: var(--ink);
-    }
-
-    .turtle-head {
-      position: absolute;
-      left: 108px;
-      bottom: 44px;
-      width: 34px;
-      height: 30px;
-      background: var(--ink);
-      border-radius: 4px;
-    }
-
-    .turtle-eye {
-      position: absolute;
-      left: 128px;
-      bottom: 61px;
-      width: 6px;
-      height: 6px;
-      background: white;
-      animation: blink 4s steps(1) infinite;
-    }
-
-    @keyframes blink {
-      0%, 92%, 100% { height: 6px; }
-      95% { height: 1px; }
-    }
-
-    .turtle-leg {
-      position: absolute;
-      bottom: 10px;
-      width: 12px;
-      height: 18px;
-      background: var(--ink);
-    }
-
-    .leg-one {
-      left: 36px;
-    }
-
-    .leg-two {
-      left: 80px;
-    }
-
-    .turtle-tail {
-      position: absolute;
-      left: 10px;
-      bottom: 34px;
-      width: 18px;
-      height: 10px;
-      background: var(--ink);
-      clip-path: polygon(0 50%, 100% 0, 100% 100%);
+        linear-gradient(to bottom, #fff 0 67%, var(--sand) 67% 100%);
     }
 
     .speech-bubble {
       position: absolute;
       left: 50%;
-      top: 18px;
+      top: 16px;
       transform: translateX(-50%);
-      width: min(420px, calc(100% - 28px));
+      width: min(440px, calc(100% - 28px));
       border: 3px solid var(--line);
       background: white;
       padding: 12px 14px;
@@ -454,7 +344,7 @@
       line-height: 1.35;
       box-shadow: 4px 4px 0 var(--line);
       text-align: center;
-      z-index: 2;
+      z-index: 3;
     }
 
     .speech-bubble::after {
@@ -471,21 +361,238 @@
       rotate: 45deg;
     }
 
-    .panic-mode .app,
-    .app.panic-mode {
+    .track {
+      position: absolute;
+      left: 7%;
+      right: 7%;
+      bottom: 56px;
+      height: 4px;
+      background: var(--line);
+    }
+
+    .track::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -8px;
+      width: 4px;
+      height: 20px;
+      background: var(--line);
+    }
+
+    .track::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: -8px;
+      width: 4px;
+      height: 20px;
+      background: var(--line);
+    }
+
+    .track-label {
+      position: absolute;
+      bottom: 18px;
+      font-size: 13px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .start-label {
+      left: 7%;
+    }
+
+    .finish-label {
+      right: 7%;
+      text-align: right;
+    }
+
+    .ocean {
+      position: absolute;
+      right: 3%;
+      bottom: 0;
+      width: 110px;
+      height: 42px;
+      border-left: 3px solid var(--line);
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0 7px,
+          var(--line) 7px 9px,
+          transparent 9px 15px
+        );
+    }
+
+    .ocean-label {
+      position: absolute;
+      right: 3%;
+      bottom: 44px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .seagull {
+      position: absolute;
+      right: 8%;
+      bottom: 116px;
+      width: 74px;
+      height: 42px;
+      z-index: 2;
+      animation: seagullHover 1.1s ease-in-out infinite alternate;
+    }
+
+    @keyframes seagullHover {
+      from { transform: translateY(0); }
+      to { transform: translateY(-8px); }
+    }
+
+    .seagull-body {
+      position: absolute;
+      left: 28px;
+      top: 18px;
+      width: 22px;
+      height: 14px;
+      background: var(--ink);
+    }
+
+    .seagull-wing-left,
+    .seagull-wing-right {
+      position: absolute;
+      top: 8px;
+      width: 30px;
+      height: 8px;
+      background: var(--ink);
+    }
+
+    .seagull-wing-left {
+      left: 0;
+      transform: rotate(-20deg);
+    }
+
+    .seagull-wing-right {
+      right: 0;
+      transform: rotate(20deg);
+    }
+
+    .seagull-label {
+      position: absolute;
+      right: 4%;
+      bottom: 158px;
+      font-size: 11px;
+      font-weight: bold;
+      border: 2px solid var(--line);
+      background: white;
+      padding: 4px 5px;
+      box-shadow: 2px 2px 0 var(--line);
+      z-index: 2;
+    }
+
+    .turtle {
+      position: absolute;
+      left: 7%;
+      bottom: 68px;
+      width: 92px;
+      height: 72px;
+      image-rendering: pixelated;
+      transform: translateX(0);
+      transition: left 0.8s linear, transform 0.2s ease, opacity 0.2s ease;
+      z-index: 2;
+      animation: turtleIdle 2.6s ease-in-out infinite;
+    }
+
+    @keyframes turtleIdle {
+      0%, 100% { translate: 0 0; }
+      50% { translate: 0 -4px; }
+    }
+
+    .turtle-shell {
+      position: absolute;
+      left: 18px;
+      bottom: 16px;
+      width: 46px;
+      height: 32px;
+      background: var(--ink);
+      border-radius: 24px 24px 8px 8px;
+    }
+
+    .turtle-shell::after {
+      content: "";
+      position: absolute;
+      left: 9px;
+      top: 7px;
+      width: 27px;
+      height: 14px;
+      border: 2px dashed #fff;
+      border-radius: 50%;
+    }
+
+    .turtle-body {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      width: 58px;
+      height: 15px;
+      background: var(--ink);
+    }
+
+    .turtle-head {
+      position: absolute;
+      left: 68px;
+      bottom: 28px;
+      width: 22px;
+      height: 20px;
+      background: var(--ink);
+      border-radius: 4px;
+    }
+
+    .turtle-eye {
+      position: absolute;
+      left: 81px;
+      bottom: 40px;
+      width: 4px;
+      height: 4px;
+      background: white;
+      animation: blink 4s steps(1) infinite;
+    }
+
+    @keyframes blink {
+      0%, 92%, 100% { height: 4px; }
+      95% { height: 1px; }
+    }
+
+    .turtle-leg {
+      position: absolute;
+      bottom: 6px;
+      width: 8px;
+      height: 12px;
+      background: var(--ink);
+    }
+
+    .leg-one {
+      left: 22px;
+    }
+
+    .leg-two {
+      left: 50px;
+    }
+
+    .turtle-tail {
+      position: absolute;
+      left: 6px;
+      bottom: 23px;
+      width: 12px;
+      height: 7px;
+      background: var(--ink);
+      clip-path: polygon(0 50%, 100% 0, 100% 100%);
+    }
+
+    .panic-mode {
       animation: pageAlarm 0.18s steps(2) infinite;
     }
 
     @keyframes pageAlarm {
       0% { transform: translate(0, 0); }
       100% { transform: translate(2px, -2px); }
-    }
-
-    .panic-mode .timer {
-      font-size: clamp(76px, 18vw, 172px);
-      letter-spacing: -8px;
-      text-align: center;
-      margin: 24px 0;
     }
 
     .panic-title {
@@ -502,6 +609,13 @@
 
     .panic-mode .panic-title {
       display: block;
+    }
+
+    .panic-mode .timer {
+      font-size: clamp(76px, 18vw, 172px);
+      letter-spacing: -8px;
+      text-align: center;
+      margin: 24px 0;
     }
 
     .panic-mode .meta-row,
@@ -525,17 +639,26 @@
       font-size: 22px;
     }
 
+    .panic-mode .restart-row {
+      display: none;
+    }
+
     .panic-mode .turtle {
       animation: turtlePanic 0.12s infinite alternate;
     }
 
     @keyframes turtlePanic {
-      from {
-        transform: translateX(-50%) translateY(0) rotate(-3deg);
-      }
-      to {
-        transform: translateX(-50%) translateY(-12px) rotate(3deg);
-      }
+      from { translate: 0 0; rotate: -3deg; }
+      to { translate: 0 -12px; rotate: 3deg; }
+    }
+
+    .panic-mode .seagull {
+      animation: seagullPanic 0.16s infinite alternate;
+    }
+
+    @keyframes seagullPanic {
+      from { transform: translateY(0) rotate(-4deg) scale(1); }
+      to { transform: translateY(-14px) rotate(4deg) scale(1.08); }
     }
 
     .ghost-mode {
@@ -544,12 +667,8 @@
     }
 
     @keyframes ghostFloat {
-      from {
-        transform: translateX(-50%) translateY(0);
-      }
-      to {
-        transform: translateX(-50%) translateY(-16px);
-      }
+      from { translate: 0 0; }
+      to { translate: 0 -16px; }
     }
 
     .ghost-mode .turtle-shell,
@@ -574,12 +693,8 @@
     }
 
     @keyframes happyBounce {
-      from {
-        transform: translateX(-50%) translateY(0) rotate(-2deg);
-      }
-      to {
-        transform: translateX(-50%) translateY(-14px) rotate(2deg);
-      }
+      from { translate: 0 0; rotate: -2deg; }
+      to { translate: 0 -14px; rotate: 2deg; }
     }
 
     .result-screen {
@@ -612,7 +727,7 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
-      background: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.9);
       z-index: 100;
     }
 
@@ -621,7 +736,7 @@
     }
 
     .modal {
-      width: min(720px, 100%);
+      width: min(760px, 100%);
       max-height: 88vh;
       overflow: auto;
       background: white;
@@ -635,10 +750,6 @@
     .modal li {
       line-height: 1.5;
       color: var(--muted);
-    }
-
-    .modal ol {
-      padding-left: 22px;
     }
 
     .modal .note {
@@ -685,13 +796,27 @@
         letter-spacing: -4px;
       }
 
-      .turtle-stage {
-        min-height: 235px;
+      .rescue-stage {
+        min-height: 280px;
+      }
+
+      .seagull-label {
+        right: 2%;
+        bottom: 164px;
+        font-size: 9px;
+      }
+
+      .seagull {
+        right: 5%;
+      }
+
+      .ocean {
+        width: 78px;
       }
 
       .turtle {
-        width: 134px;
-        height: 104px;
+        width: 82px;
+        height: 66px;
       }
     }
   </style>
@@ -706,7 +831,7 @@
 
       <p class="subtitle">
         Inserisci una decisione, ricevi una scadenza, prova a rimandare.
-        La tua procrastinazione vale più della vita di questa bellissima tartaruga?
+        La tua procrastinazione vale più della vita di questa bellissima tartarughina?
       </p>
 
       <div class="grid">
@@ -777,16 +902,23 @@
 
       <div class="buttons">
         <button class="primary calculate-button" onclick="startTimer()">Calcola la mia condanna</button>
-        <button class="secondary" onclick="openHowItWorks()">Come funziona?</button>
+        <button class="secondary" onclick="openIntroModal()">Come funziona?</button>
       </div>
 
-      <div class="turtle-stage" aria-hidden="true">
+      <div class="rescue-stage" aria-hidden="true">
         <div class="speech-bubble">
           Sono lenta per natura.<br />
           Tu per scelta?
         </div>
 
-        <div class="turtle">
+        <div class="seagull-label">Gabbiano sospetto</div>
+        <div class="seagull">
+          <div class="seagull-wing-left"></div>
+          <div class="seagull-body"></div>
+          <div class="seagull-wing-right"></div>
+        </div>
+
+        <div class="turtle" style="left: 7%;">
           <div class="turtle-tail"></div>
           <div class="turtle-body"></div>
           <div class="turtle-shell"></div>
@@ -796,61 +928,77 @@
           <div class="turtle-leg leg-two"></div>
         </div>
 
-        <div class="stage-floor"></div>
+        <div class="track"></div>
+        <div class="track-label start-label">START</div>
+        <div class="track-label finish-label">FINISH</div>
+        <div class="ocean-label">Oceano</div>
+        <div class="ocean"></div>
       </div>
     </section>
 
     <section id="timerScreen" class="screen">
       <div class="panic-title">Ultimo minuto</div>
 
-      <div class="timer-layout">
-        <div>
-          <h1>Decidi.</h1>
+      <h1>Salvala.</h1>
 
-          <p>Decisione ufficialmente sotto osservazione:</p>
-          <div id="decisionLabel" class="decision-name"></div>
+      <p>Decisione ufficialmente sotto osservazione:</p>
+      <div id="decisionLabel" class="decision-name"></div>
 
-          <div class="meta-row">
-            <div id="sphereBadge" class="badge">Sfera: —</div>
-            <div id="dayBadge" class="badge">Giorno: —</div>
-            <div id="totalBadge" class="badge">Durata: —</div>
-          </div>
+      <div class="meta-row">
+        <div id="sphereBadge" class="badge">Sfera: —</div>
+        <div id="dayBadge" class="badge">Giorno: —</div>
+        <div id="totalBadge" class="badge">Durata: —</div>
+      </div>
 
-          <div id="timer" class="timer">00g 00h 00m 00s</div>
+      <div id="timer" class="timer">00g 00h 00m 00s</div>
 
-          <div id="statusText" class="status-line">
-            Il timer è salvato nel browser. Chiudere la pagina non fermerà la tartaruga.
-          </div>
+      <div id="statusText" class="status-line">
+        La tartarughina avanza verso l’oceano. Purtroppo anche verso il gabbiano.
+      </div>
 
-          <div class="timer-buttons">
-            <button id="decideButton" class="primary big-action decide-button" onclick="decisionMade()">Ho deciso</button>
-            <button id="delayButton" class="big-action delay-button">Rimanda</button>
-          </div>
+      <div class="timer-buttons">
+        <button id="decideButton" class="primary big-action decide-button" onclick="decisionMade()">Ho deciso</button>
+        <button id="delayButton" class="big-action delay-button">Rimanda</button>
+      </div>
+
+      <div class="restart-row">
+        <button class="restart-button" onclick="resetAll()">Ricomincia</button>
+      </div>
+
+      <div id="missionCard" class="mission-card">
+        <div class="mission-label">Missione di oggi</div>
+        <div id="missionJoke" class="mission-joke"></div>
+        <div id="missionAction" class="mission-section"></div>
+        <div id="missionWhy" class="mission-section"></div>
+      </div>
+
+      <div class="rescue-stage" aria-hidden="true">
+        <div id="timerBubble" class="speech-bubble">
+          Io vado. Tu decidi.
         </div>
 
-        <div id="missionCard" class="mission-card">
-          <div class="mission-label">Missione di oggi</div>
-          <div id="missionRoast" class="mission-roast"></div>
-          <div id="missionScience" class="mission-science"></div>
+        <div class="seagull-label">Gabbiano sospetto</div>
+        <div class="seagull">
+          <div class="seagull-wing-left"></div>
+          <div class="seagull-body"></div>
+          <div class="seagull-wing-right"></div>
         </div>
 
-        <div class="turtle-stage" aria-hidden="true">
-          <div id="timerBubble" class="speech-bubble">
-            Hai tempo. Non abusarne.
-          </div>
-
-          <div id="timerTurtle" class="turtle">
-            <div class="turtle-tail"></div>
-            <div class="turtle-body"></div>
-            <div class="turtle-shell"></div>
-            <div class="turtle-head"></div>
-            <div class="turtle-eye"></div>
-            <div class="turtle-leg leg-one"></div>
-            <div class="turtle-leg leg-two"></div>
-          </div>
-
-          <div class="stage-floor"></div>
+        <div id="movingTurtle" class="turtle">
+          <div class="turtle-tail"></div>
+          <div class="turtle-body"></div>
+          <div class="turtle-shell"></div>
+          <div class="turtle-head"></div>
+          <div class="turtle-eye"></div>
+          <div class="turtle-leg leg-one"></div>
+          <div class="turtle-leg leg-two"></div>
         </div>
+
+        <div class="track"></div>
+        <div class="track-label start-label">START</div>
+        <div class="track-label finish-label">FINISH</div>
+        <div class="ocean-label">Oceano</div>
+        <div class="ocean"></div>
       </div>
     </section>
 
@@ -858,19 +1006,19 @@
       <h1>Hai deciso.</h1>
 
       <p class="result-copy">
-        Contro ogni previsione, hai preso una decisione. La tartaruga è confusa,
-        felice e leggermente destabilizzata dal tuo sviluppo personale.
+        Hai salvato la tartarughina. Il gabbiano resta a becco asciutto
+        e tu, contro ogni previsione, hai preso una decisione.
       </p>
 
       <div class="cookie-prize">Hai vinto un 🍪</div>
 
-      <div class="turtle-stage" aria-hidden="true">
+      <div class="rescue-stage" aria-hidden="true">
         <div class="speech-bubble">
-          Miracolo.<br />
-          Ma con calma.
+          Viva.<br />
+          Grazie, credo.
         </div>
 
-        <div class="turtle happy-mode">
+        <div class="turtle happy-mode" style="left: 82%;">
           <div class="turtle-tail"></div>
           <div class="turtle-body"></div>
           <div class="turtle-shell"></div>
@@ -880,7 +1028,11 @@
           <div class="turtle-leg leg-two"></div>
         </div>
 
-        <div class="stage-floor"></div>
+        <div class="track"></div>
+        <div class="track-label start-label">START</div>
+        <div class="track-label finish-label">OCEANO</div>
+        <div class="ocean-label">Salva</div>
+        <div class="ocean"></div>
       </div>
 
       <div class="buttons" style="justify-content: center;">
@@ -893,16 +1045,23 @@
       <h1>Non hai deciso.</h1>
 
       <p class="result-copy">
-        La tartaruga ora ti giudica da un piano esistenziale superiore.
-        Non è arrabbiata. È solo molto, molto delusa.
+        La tartarughina è diventata un fantasma. Il gabbiano ringrazia.
+        Spero che il “ci penso” ne sia valsa la pena.
       </p>
 
-      <div class="turtle-stage" aria-hidden="true">
+      <div class="rescue-stage" aria-hidden="true">
         <div id="ghostBubble" class="speech-bubble">
-          Hai perso contro una tartaruga.
+          Il gabbiano ringrazia.
         </div>
 
-        <div class="turtle ghost-mode">
+        <div class="seagull-label">Molto soddisfatto</div>
+        <div class="seagull">
+          <div class="seagull-wing-left"></div>
+          <div class="seagull-body"></div>
+          <div class="seagull-wing-right"></div>
+        </div>
+
+        <div class="turtle ghost-mode" style="left: 82%;">
           <div class="turtle-tail"></div>
           <div class="turtle-body"></div>
           <div class="turtle-shell"></div>
@@ -912,7 +1071,11 @@
           <div class="turtle-leg leg-two"></div>
         </div>
 
-        <div class="stage-floor"></div>
+        <div class="track"></div>
+        <div class="track-label start-label">START</div>
+        <div class="track-label finish-label">FINISH</div>
+        <div class="ocean-label">Troppo tardi</div>
+        <div class="ocean"></div>
       </div>
 
       <div class="buttons" style="justify-content: center;">
@@ -922,59 +1085,61 @@
     </section>
   </main>
 
-  <div id="howItWorksModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div id="introModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="introTitle">
     <div class="modal">
-      <h2 id="modalTitle">Come funziona</h2>
+      <h2 id="introTitle">Prima di iniziare</h2>
 
       <p>
-        <strong>Il Timer (In)deciso</strong> è un timer per chi riesce a trasformare
-        una scelta qualsiasi in una saga psicologica a puntate.
+        Benvenuto nel <strong>Timer (In)deciso</strong>.
       </p>
 
-      <ol>
-        <li>
-          Rispondi alle domande sulla decisione che stai rimandando con grande
-          professionalità.
-        </li>
-        <li>
-          Il timer calcola quanti giorni hai per decidere, in base a quanto la scelta
-          è importante, reversibile, delicata e già rimandata.
-        </li>
-        <li>
-          Più la situazione è complessa, più tempo ricevi. Più la stai rimandando
-          da secoli, più il timer perde fiducia in te.
-        </li>
-        <li>
-          Ogni giorno trovi una missione pratica per sbloccarti. Prima ti prende
-          in giro, poi ti spiega perché quella cosa può aiutarti davvero.
-        </li>
-        <li>
-          La tartaruga ti osserva. Lei è lenta per natura. Tu, apparentemente,
-          per scelta.
-        </li>
-        <li>
-          Se provi a cliccare “Rimanda”, il bottone scappa. Dopo un po’ si arrende
-          e diventa “Seguimi”, perché almeno puoi procrastinare con stile.
-        </li>
-        <li>
-          Quando manca meno di un minuto, la pagina entra in modalità panico.
-          Il countdown diventa enorme, il bottone “Ho deciso” ti implora e la
-          tartaruga rivaluta l’umanità.
-        </li>
-        <li>
-          Se decidi, vinci un biscotto. Se non decidi, la tartaruga diventa un
-          fantasma e ti lascia una frase a presa in giro.
-        </li>
-      </ol>
+      <p>
+        Se sei qui, probabilmente sei un procrastinatore seriale come me.
+      </p>
+
+      <p>
+        Dovevi prendere una decisione, ma il tuo cervello ha aperto una riunione
+        interna non richiesta, con ansia, dubbi, contro-dubbi e almeno una persona
+        immaginaria che dice “forse meglio pensarci ancora”.
+      </p>
+
+      <p>
+        Questa volta però non riguarda solo te.
+      </p>
+
+      <p>
+        C’è una tartarughina che sta cercando di arrivare all’oceano. È lenta,
+        tenera e completamente ignara del fatto che alla fine del percorso c’è
+        un gabbiano con pessime intenzioni.
+      </p>
+
+      <p>
+        Il tuo obiettivo è prendere una decisione prima che la tartarughina arrivi
+        al traguardo.
+      </p>
+
+      <p>
+        Rispondi alle domande, ricevi una scadenza e ogni giorno completa una piccola
+        missione pratica per sbloccarti.
+      </p>
+
+      <p>
+        Se decidi in tempo, la salvi e vinci un 🍪.<br />
+        Se non decidi, il gabbiano ringrazia.
+      </p>
 
       <div class="note">
-        Nota: se la decisione riguarda salute, sicurezza, soldi importanti o situazioni delicate,
-        questo timer non sostituisce medici, professionisti, persone competenti, terapia o buon senso.
-        Serve a sbloccarti, non a decidere al posto tuo.
+        Nessuna pressione. A parte la vita della tartarughina.
+      </div>
+
+      <div class="note">
+        Nota seria: se la decisione riguarda salute, sicurezza, soldi importanti
+        o situazioni delicate, questo timer non sostituisce medici, professionisti,
+        terapia, persone competenti o buon senso.
       </div>
 
       <div class="buttons">
-        <button class="primary" onclick="closeHowItWorks()">Ho capito, purtroppo</button>
+        <button class="primary" onclick="closeIntroModal()">Ok, salvo la tartarughina</button>
       </div>
     </div>
   </div>
@@ -984,6 +1149,7 @@
     const DEBUG_KEYWORD = "debugturtle";
     const DEBUG_DURATION_MS = 2 * 60 * 1000;
     const PANIC_THRESHOLD_MS = 60 * 1000;
+    const INTRO_SEEN_KEY = "indecisionIntroSeen";
 
     const app = document.getElementById("app");
 
@@ -1003,159 +1169,119 @@
     const timerElement = document.getElementById("timer");
     const statusText = document.getElementById("statusText");
 
-    const missionRoast = document.getElementById("missionRoast");
-    const missionScience = document.getElementById("missionScience");
+    const missionJoke = document.getElementById("missionJoke");
+    const missionAction = document.getElementById("missionAction");
+    const missionWhy = document.getElementById("missionWhy");
 
     const delayButton = document.getElementById("delayButton");
     const timerBubble = document.getElementById("timerBubble");
-
+    const movingTurtle = document.getElementById("movingTurtle");
     const ghostBubble = document.getElementById("ghostBubble");
-    const howItWorksModal = document.getElementById("howItWorksModal");
+
+    const introModal = document.getElementById("introModal");
 
     let countdownInterval = null;
     let delayAttempts = 0;
-    let delayButtonIsFollow = false;
+    let followTimeout = null;
+    let isFollowTemporarilyActive = false;
 
     const sphereConfig = {
       relationships: {
         label: "Relazioni",
-        bonusDays: 1,
-        missions: [
-          {
-            roast: "Oggi smetti di fare archeologia emotiva nella chat.",
-            science: "Scrivi cosa vuoi davvero comunicare in una frase. Funziona perché riduce l’ambiguità: quando il cervello deve gestire troppe interpretazioni, tende a rimandare per evitare il disagio della conversazione."
-          },
-          {
-            roast: "No, rileggere per la quindicesima volta non è analisi. È turismo nel panico.",
-            science: "Distingui fatti, paure e supposizioni. Questo aiuta perché separare i dati reali dalle interpretazioni abbassa il carico emotivo e rende più facile scegliere un’azione concreta."
-          },
-          {
-            roast: "Prepara una frase umana, non un discorso da tribunale sentimentale.",
-            science: "Scrivi una frase breve che potresti dire davvero. Le intenzioni formulate in modo semplice aumentano la probabilità di agire, perché trasformano una scelta vaga in un comportamento specifico."
-          },
-          {
-            roast: "Se il tuo piano è sparire, sappi che anche quello comunica. Male, ma comunica.",
-            science: "Chiediti cosa succede se non fai nulla per altri sette giorni. Valutare il costo dell’inazione rende visibile che anche non decidere produce conseguenze."
-          }
-        ]
+        bonusDays: 1
       },
-
       work: {
         label: "Lavoro",
-        bonusDays: 1,
-        missions: [
-          {
-            roast: "Aprire LinkedIn e sospirare non conta come strategia professionale.",
-            science: "Scrivi cosa stai davvero valutando: soldi, tempo, crescita, stress o fuga. Dare un nome preciso al criterio principale riduce il rumore mentale e rende la scelta più confrontabile."
-          },
-          {
-            roast: "Oggi puoi aprire una sola tab. Una. Respira.",
-            science: "Raccogli una sola informazione utile. Troppe informazioni creano sovraccarico cognitivo: oltre un certo punto, cercare ancora dati aumenta l’indecisione invece di ridurla."
-          },
-          {
-            roast: "Fai pro e contro, ma vietato scrivere ‘boh’ come se fosse consulenza.",
-            science: "Mettere per iscritto vantaggi e svantaggi libera memoria di lavoro. Quando non devi tenere tutto in testa, riesci a valutare con più lucidità."
-          },
-          {
-            roast: "Immagina il piano B, non l’apocalisse in tre stagioni.",
-            science: "Pensare a cosa faresti se la scelta andasse male riduce la percezione di irreversibilità. Il cervello decide meglio quando vede una via di recupero."
-          }
-        ]
+        bonusDays: 1
       },
-
       health: {
         label: "Salute",
-        bonusDays: 3,
-        missions: [
-          {
-            roast: "Autodiagnosticarsi con tre video e un commento anonimo non è medicina. È folklore digitale.",
-            science: "Scrivi il prossimo passo sicuro: prenotare, chiedere, informarti da una fonte affidabile. Ridurre la scelta a un primo passo abbassa l’ansia e aumenta la probabilità di agire."
-          },
-          {
-            roast: "Oggi niente spirale su internet. La tartaruga ti guarda anche dalla cronologia.",
-            science: "Cerca una fonte affidabile o una persona competente. La qualità dell’informazione è più importante della quantità, soprattutto quando una decisione è delicata."
-          },
-          {
-            roast: "Non confondere ‘ho paura’ con ‘ho prove’. Sono parenti, non gemelli.",
-            science: "Dividi ciò che sai, ciò che temi e ciò che devi verificare. Questa tecnica aiuta a separare emozione e informazione, rendendo la scelta meno caotica."
-          },
-          {
-            roast: "Il timer non è un medico. È una tartaruga con delusioni.",
-            science: "Prepara una domanda chiara da fare a un professionista. Le domande specifiche aiutano a ricevere risposte più utili e a non bloccarsi davanti a un problema generico."
-          }
-        ]
+        bonusDays: 3
       },
-
       passions: {
         label: "Passioni",
-        bonusDays: 0,
-        missions: [
-          {
-            roast: "Il progetto perfetto che vive solo nella tua testa ha già vinto troppi premi immaginari.",
-            science: "Definisci la versione più piccola possibile da iniziare oggi. I micro-passi funzionano perché riducono la resistenza iniziale e trasformano un’identità desiderata in un’azione concreta."
-          },
-          {
-            roast: "Aspettare l’ispirazione è elegante. Anche completamente inutile, spesso.",
-            science: "Dedica 20 minuti a una prova brutta e incompleta. Iniziare abbassa la soglia psicologica: la motivazione spesso arriva dopo l’azione, non prima."
-          },
-          {
-            roast: "Oggi elimini una scusa. Solo una. Le altre possono continuare a pascolare.",
-            science: "Identificare una scusa specifica aiuta perché rende visibile il meccanismo di evitamento. Quando lo nomini, è più difficile usarlo in automatico."
-          },
-          {
-            roast: "La bozza brutta è viva. Il capolavoro immaginario è un fantasma con autostima.",
-            science: "Crea una prima versione non definitiva. Le bozze riducono il perfezionismo perché spostano il focus dal giudizio al miglioramento progressivo."
-          }
-        ]
+        bonusDays: 0
       },
-
       family: {
         label: "Famiglia",
-        bonusDays: 2,
-        missions: [
-          {
-            roast: "Oggi niente archivio emotivo dal 2009. Lo so, è tentante.",
-            science: "Scrivi qual è il punto reale della decisione. Separare il problema attuale dalla storia accumulata riduce la reattività e rende più facile comunicare."
-          },
-          {
-            roast: "Non convocare tutto l’albero genealogico per una scelta che riguarda due persone.",
-            science: "Chiediti chi deve essere davvero coinvolto. Limitare il numero di interlocutori riduce complessità, pressione sociale e rischio di conflitti inutili."
-          },
-          {
-            roast: "Prepara una frase chiara. Non una bomba diplomatica con fiocco.",
-            science: "Usare una frase semplice e non accusatoria aiuta a ridurre la difensività dell’altra persona. Le conversazioni difficili funzionano meglio quando il messaggio è concreto."
-          },
-          {
-            roast: "La pace familiare non nasce dal far finta di niente. Quello è solo silenzio con arredamento.",
-            science: "Distingui ciò che vuoi ottenere da ciò che vuoi dimostrare. Questo aiuta a scegliere un’azione utile invece di reagire solo al bisogno di avere ragione."
-          }
-        ]
+        bonusDays: 2
       }
     };
 
+    const genericMissions = [
+      {
+        joke: "La tartarughina cammina. Tu almeno scrivi una frase.",
+        action: "Scrivi la decisione in una frase sola, iniziando con: “Devo scegliere se...”. Esempio: “Devo scegliere se accettare questa proposta o rifiutarla.”",
+        why: "Se la decisione è vaga, il cervello non sa cosa confrontare. Scriverla in modo preciso trasforma una nuvola mentale in un problema più gestibile."
+      },
+      {
+        joke: "Cinque opzioni non ti rendono libero. Ti rendono solo più bravo a fissare il vuoto.",
+        action: "Se hai più di due opzioni, elimina quelle che sai già di non voler scegliere davvero. Tieni solo le due alternative più realistiche.",
+        why: "Troppe opzioni aumentano il blocco. Ridurre la scelta a due possibilità rende il confronto più semplice e abbassa la fatica mentale."
+      },
+      {
+        joke: "Non stai scegliendo tra opzioni. Stai scegliendo quale criterio ignorare per primo.",
+        action: "Scegli il criterio più importante per questa decisione: tempo, soldi, serenità, crescita, salute, libertà, sicurezza o energia. Poi chiediti quale opzione lo rispetta meglio.",
+        why: "Quando non hai un criterio, ogni opzione sembra giusta e sbagliata allo stesso tempo. Un criterio principale dà una direzione alla scelta."
+      },
+      {
+        joke: "Oggi niente analisi infinita travestita da produttività.",
+        action: "Imposta un timer da 10 minuti e scrivi pro e contro senza correggerti. Quando suona, fermati.",
+        why: "Dare un limite di tempo evita di trasformare l’analisi in procrastinazione. Scrivere libera spazio mentale e rende visibili pensieri che prima erano confusi."
+      },
+      {
+        joke: "“Ho una brutta sensazione” non è un dato. È un dato vestito da film drammatico.",
+        action: "Dividi un foglio in due colonne. A sinistra scrivi “Cose che so”. A destra scrivi “Cose che temo”.",
+        why: "Le paure sembrano fatti quando restano tutte insieme nella testa. Separarle ti aiuta a capire cosa è reale, cosa è immaginato e cosa devi ancora verificare."
+      },
+      {
+        joke: "Dire “devo informarmi meglio” è spesso il modo elegante per non decidere mai.",
+        action: "Scrivi una sola informazione che ti manca per decidere. Una sola. Poi cercala, chiedila o verificala.",
+        why: "Cercare una sola informazione utile riduce il caos. Ti impedisce di usare la ricerca come parcheggio infinito per l’indecisione."
+      },
+      {
+        joke: "Anche non decidere è una decisione. Solo con meno dignità grafica.",
+        action: "Completa questa frase: “Se non decido entro la scadenza, il costo sarà...”. Scrivi almeno tre conseguenze concrete.",
+        why: "Il cervello vede facilmente il rischio di scegliere, ma sottovaluta il rischio di restare fermo. Questa missione rende visibile il prezzo della procrastinazione."
+      },
+      {
+        joke: "Se puoi tornare indietro, forse stai trattando una porta come se fosse un burrone.",
+        action: "Rispondi con sincerità: “Se scelgo questa opzione e mi accorgo che non va bene, posso correggere il tiro?”. Scrivi: sì, no o in parte.",
+        why: "Le decisioni reversibili non vanno trattate come definitive. Capire che puoi modificare il percorso riduce la paura di sbagliare."
+      },
+      {
+        joke: "Con gli altri sei saggio. Con te stesso sembri un comitato in fiamme.",
+        action: "Immagina che un amico ti racconti la tua stessa situazione. Scrivi cosa gli consiglieresti in massimo tre righe.",
+        why: "Quando il problema è tuo, l’emozione distorce la valutazione. Guardarlo dall’esterno aiuta a ragionare con più distanza e chiarezza."
+      },
+      {
+        joke: "Stai cercando la scelta perfetta perché il primo passo ti imbarazza.",
+        action: "Scrivi il prossimo passo più piccolo possibile. Deve essere un’azione concreta che puoi fare in meno di 15 minuti.",
+        why: "Le decisioni grandi bloccano perché sembrano definitive. Un piccolo passo crea slancio e riduce la distanza tra pensare e agire."
+      }
+    ];
+
     const turtleNormalLines = [
-      "Hai tempo. Non abusarne.",
-      "Sto andando più veloce io.",
-      "Io sono lenta. Tu stai esagerando.",
-      "Il guscio sente pressione.",
-      "Ultimo avviso, fenomeno."
+      "Io vado. Tu decidi.",
+      "L’oceano sembra vicino. Troppo vicino.",
+      "Quel gabbiano mi guarda strano.",
+      "Non vorrei metterti pressione, ma ho visto delle ali.",
+      "Se hai un piano, questo sarebbe un buon momento."
     ];
 
     const panicLines = [
-      "Anche io mi sto muovendo, ed è grave.",
-      "Manca meno di un minuto. Respira e clicca.",
-      "La tartaruga sta rivalutando l’umanità.",
-      "Il guscio non regge questa tensione."
+      "Perché sento ali?",
+      "Manca meno di un minuto. Salvatemi.",
+      "Il gabbiano sta facendo stretching.",
+      "Se devi decidere, ORA sarebbe carino."
     ];
 
-    const ghostInsults = [
-      "Hai perso contro una tartaruga.",
+    const ghostLines = [
+      "Il gabbiano ringrazia.",
+      "Hai perso contro un volatile.",
       "Campione del “poi”.",
-      "CEO del “ci penso”.",
-      "Maestro del forse.",
-      "Nemmeno io sono così lenta.",
-      "Sua lentezza reale.",
-      "Rimandatore professionista."
+      "Spero che il ci penso fosse buono.",
+      "Nemmeno io ero così lenta."
     ];
 
     function showScreen(screen) {
@@ -1166,27 +1292,28 @@
       screen.classList.add("active");
     }
 
-    function openHowItWorks() {
-      howItWorksModal.classList.add("show");
+    function openIntroModal() {
+      introModal.classList.add("show");
     }
 
-    function closeHowItWorks() {
-      howItWorksModal.classList.remove("show");
+    function closeIntroModal() {
+      introModal.classList.remove("show");
+      localStorage.setItem(INTRO_SEEN_KEY, "true");
     }
 
     function openInstagram() {
       window.open(INSTAGRAM_URL, "_blank", "noopener,noreferrer");
     }
 
-    howItWorksModal.addEventListener("click", function(event) {
-      if (event.target === howItWorksModal) {
-        closeHowItWorks();
+    introModal.addEventListener("click", function(event) {
+      if (event.target === introModal) {
+        closeIntroModal();
       }
     });
 
     document.addEventListener("keydown", function(event) {
       if (event.key === "Escape") {
-        closeHowItWorks();
+        closeIntroModal();
       }
     });
 
@@ -1231,7 +1358,7 @@
       }
 
       const decisionText = isDebug
-        ? "Debug tartaruga: test panico e scadenza in 2 minuti"
+        ? "Debug tartarughina: test panico e scadenza in 2 minuti"
         : rawDecisionText || "Decisione non specificata, molto sospetta";
 
       const startTime = Date.now();
@@ -1261,6 +1388,13 @@
 
       if (!session) {
         showScreen(setupScreen);
+
+        const introSeen = localStorage.getItem(INTRO_SEEN_KEY) === "true";
+
+        if (!introSeen) {
+          setTimeout(openIntroModal, 450);
+        }
+
         return;
       }
 
@@ -1294,7 +1428,7 @@
 
       showScreen(timerScreen);
 
-      updateDailyContent(session, sphere);
+      updateDailyContent(session);
       updateCountdown();
 
       if (countdownInterval) {
@@ -1343,9 +1477,9 @@
 
       timerElement.textContent = formatRemainingTime(remaining);
 
-      const sphere = sphereConfig[session.sphereKey] || sphereConfig.relationships;
-      updateDailyContent(session, sphere);
-      updateTurtleState(session, remaining);
+      updateDailyContent(session);
+      updateTurtleProgress(session, remaining);
+      updateTurtleSpeech(session, remaining);
       updatePanicMode(remaining);
     }
 
@@ -1384,7 +1518,7 @@
       return Math.max(0, dayIndex);
     }
 
-    function updateDailyContent(session, sphere) {
+    function updateDailyContent(session) {
       const dayIndex = getCurrentDayIndex(session);
       const humanDay = dayIndex + 1;
 
@@ -1392,14 +1526,26 @@
         ? "Giorno: debug"
         : "Giorno: " + humanDay;
 
-      const missionIndex = dayIndex % sphere.missions.length;
-      const mission = sphere.missions[missionIndex];
+      const mission = genericMissions[dayIndex % genericMissions.length];
 
-      missionRoast.textContent = mission.roast;
-      missionScience.innerHTML = "<strong>Perché funziona:</strong> " + mission.science;
+      missionJoke.textContent = mission.joke;
+      missionAction.innerHTML = "<strong>Fallo ora</strong>" + mission.action;
+      missionWhy.innerHTML = "<strong>Perché funziona</strong>" + mission.why;
     }
 
-    function updateTurtleState(session, remaining) {
+    function updateTurtleProgress(session, remaining) {
+      const totalDuration = session.deadline - session.startTime;
+      const elapsed = Date.now() - session.startTime;
+      const progress = Math.min(1, Math.max(0, elapsed / totalDuration));
+
+      const startLeft = 7;
+      const finishLeft = 82;
+      const currentLeft = startLeft + (finishLeft - startLeft) * progress;
+
+      movingTurtle.style.left = currentLeft + "%";
+    }
+
+    function updateTurtleSpeech(session, remaining) {
       if (remaining <= PANIC_THRESHOLD_MS) {
         const panicIndex = Math.floor(remaining / 10000) % panicLines.length;
         timerBubble.textContent = panicLines[panicIndex];
@@ -1407,13 +1553,13 @@
       }
 
       if (session.isDebug) {
-        timerBubble.textContent = "Debug attivo. Tra poco parte il panico.";
+        timerBubble.textContent = "Debug attivo. Il gabbiano scalda le ali.";
         return;
       }
 
-      const dayIndex = getCurrentDayIndex(session);
-      const total = Number(session.totalDays);
-      const progress = Math.min(1, dayIndex / Math.max(1, total - 1));
+      const totalDuration = session.deadline - session.startTime;
+      const elapsed = Date.now() - session.startTime;
+      const progress = Math.min(1, Math.max(0, elapsed / totalDuration));
       const lineIndex = Math.min(
         turtleNormalLines.length - 1,
         Math.floor(progress * turtleNormalLines.length)
@@ -1425,10 +1571,10 @@
     function updatePanicMode(remaining) {
       if (remaining <= PANIC_THRESHOLD_MS) {
         app.classList.add("panic-mode");
-        statusText.textContent = "Manca meno di un minuto. Anche la tartaruga, notoriamente lenta, si sta agitando.";
+        statusText.textContent = "Manca meno di un minuto. La tartarughina è praticamente nel menù del gabbiano.";
       } else {
         app.classList.remove("panic-mode");
-        statusText.textContent = "Il timer è salvato nel browser. Chiudere la pagina non fermerà la tartaruga.";
+        statusText.textContent = "La tartarughina avanza verso l’oceano. Purtroppo anche verso il gabbiano.";
       }
     }
 
@@ -1459,40 +1605,42 @@
     }
 
     function showFailScreen() {
-      const insult = ghostInsults[Math.floor(Math.random() * ghostInsults.length)];
-      ghostBubble.textContent = insult;
+      const line = ghostLines[Math.floor(Math.random() * ghostLines.length)];
+      ghostBubble.textContent = line;
       showScreen(failScreen);
     }
 
     function resetAll() {
       localStorage.removeItem("indecisionSession");
-      delayAttempts = 0;
-      delayButtonIsFollow = false;
+      clearInterval(countdownInterval);
+      resetRunawayButton();
       app.classList.remove("panic-mode");
       location.reload();
     }
 
     function resetRunawayButton() {
       delayAttempts = 0;
-      delayButtonIsFollow = false;
+      isFollowTemporarilyActive = false;
+
+      if (followTimeout) {
+        clearTimeout(followTimeout);
+        followTimeout = null;
+      }
+
       delayButton.textContent = "Rimanda";
       delayButton.classList.remove("follow-mode");
       delayButton.style.transform = "translate(0, 0)";
     }
 
     function moveDelayButton() {
-      if (delayButtonIsFollow) {
+      if (isFollowTemporarilyActive) {
         return;
       }
 
       delayAttempts += 1;
 
       if (delayAttempts >= 6) {
-        delayButtonIsFollow = true;
-        delayButton.textContent = "Seguimi";
-        delayButton.classList.add("follow-mode");
-        delayButton.style.transform = "translate(0, 0)";
-        timerBubble.textContent = "Almeno procrastina seguendolo.";
+        activateTemporaryFollow();
         return;
       }
 
@@ -1510,37 +1658,54 @@
         "Bel tentativo.",
         "Non oggi.",
         "Dai, su.",
-        "Seguimi"
+        "Quasi."
       ];
 
       delayButton.textContent = messages[delayAttempts % messages.length];
 
       const turtleMessages = [
         "Ti ho visto.",
-        "Che imbarazzo.",
-        "Io sono lenta, non complice.",
-        "Il guscio si dissocia.",
-        "Ancora?"
+        "La missione è salvarmi, ricordi?",
+        "Il gabbiano approva il tuo comportamento.",
+        "Io cammino. Tu scappi.",
+        "Molto maturo."
       ];
 
       timerBubble.textContent = turtleMessages[(delayAttempts - 1) % turtleMessages.length];
     }
 
+    function activateTemporaryFollow() {
+      isFollowTemporarilyActive = true;
+      delayButton.textContent = "Seguimi";
+      delayButton.classList.add("follow-mode");
+      delayButton.style.transform = "translate(0, 0)";
+      timerBubble.textContent = "Hai 3 secondi per cliccare d’istinto. Poi si torna a salvarmi.";
+
+      followTimeout = setTimeout(function() {
+        isFollowTemporarilyActive = false;
+        delayAttempts = 0;
+        delayButton.textContent = "Rimanda";
+        delayButton.classList.remove("follow-mode");
+        delayButton.style.transform = "translate(0, 0)";
+        timerBubble.textContent = "Ok, pausa finita. Il gabbiano è ancora lì.";
+      }, 3000);
+    }
+
     delayButton.addEventListener("mouseenter", function() {
-      if (!delayButtonIsFollow) {
+      if (!isFollowTemporarilyActive) {
         moveDelayButton();
       }
     });
 
     delayButton.addEventListener("touchstart", function(event) {
-      if (!delayButtonIsFollow) {
+      if (!isFollowTemporarilyActive) {
         event.preventDefault();
         moveDelayButton();
       }
     });
 
     delayButton.addEventListener("click", function() {
-      if (delayButtonIsFollow) {
+      if (isFollowTemporarilyActive) {
         openInstagram();
       }
     });
