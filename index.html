@@ -845,9 +845,13 @@
 
     .intro-story-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 12px;
       margin: 18px 0;
+    }
+
+    .intro-card-wide {
+      grid-column: 1 / -1;
     }
 
     .intro-card {
@@ -1263,11 +1267,13 @@
       </div>
 
       <div class="intro-story-grid">
-        <div class="intro-card">
+        <div class="intro-card intro-card-wide">
           <div class="intro-card-icon">🧠</div>
           <div class="intro-card-title">Il problema</div>
           <div class="intro-card-text">
-            Dovevi decidere una cosa. Il tuo cervello ha aperto una riunione interna non richiesta.
+            Dovevi prendere una decisione, ma il tuo cervello ha aperto una riunione interna non richiesta,
+            con ansia, dubbi, contro-dubbi e almeno una persona immaginaria che dice
+            “forse meglio pensarci ancora”.
           </div>
         </div>
 
