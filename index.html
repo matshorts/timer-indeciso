@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Indecision Timer</title>
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --ink: #222222;
+      --muted: #666666;
+      --line: #222222;
+      --danger: #111111;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Courier New", monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .app {
+      width: min(760px, 100%);
+      border: 3px solid var(--line);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .top-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 7vw, 64px);
+      margin: 0 0 8px;
+      line-height: 0.95;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      margin: 0 0 24px;
+      max-width: 620px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid var(--line);
+      font: inherit;
+      background: white;
+      color: var(--ink);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    button {
+      font: inherit;
+      font-weight: bold;
+      background: white;
+      color: var(--ink);
+      border: 3px solid var(--line);
+      padding: 12px 18px;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 var(--line);
+      transition: transform 0.08s ease, box-shadow 0.08s ease;
+      touch-action: manipulation;
+    }
+
+    button:active {
+      transform: translate(4px, 4px);
+      box-shadow: 0 0 0 var(--line);
+    }
+
+    .primary {
+      background: var(--ink);
+      color: white;
+    }
+
+    .timer {
+      font-size: clamp(42px, 12vw, 96px);
+      font-weight: bold;
+      letter-spacing: -4px;
+      margin: 16px 0;
+      line-height: 1;
+    }
+
+    .decision-name {
+      display: inline-block;
+      border: 2px dashed var(--line);
+      padding: 8px;
+      margin: 8px 0 16px;
+      max-width: 100%;
+      word-break: break-word;
+    }
+
+    .tip-box {
+      border: 2px dashed var(--line);
+      padding: 14px;
+      margin-top: 20px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .game-area {
+      height: 150px;
+      position: relative;
+      margin-top: 28px;
+      border-bottom: 3px solid var(--line);
+      overflow: hidden;
+    }
+
+    .ground-dash {
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 200%;
+      height: 3px;
+      background: repeating-linear-gradient(
+        to right,
+        var(--line) 0 20px,
+        transparent 20px 38px
+      );
+      animation: groundMove 1.2s linear infinite;
+    }
+
+    @keyframes groundMove {
+      from { transform: translateX(0); }
+      to { transform: translateX(-58px); }
+    }
+
+    .pet {
+      position: absolute;
+      left: 38px;
+      bottom: 14px;
+      width: 72px;
+      height: 72px;
+      image-rendering: pixelated;
+      transition: transform 0.2s ease;
+    }
+
+    .pet-body {
+      position: absolute;
+      left: 14px;
+      bottom: 8px;
+      width: 38px;
+      height: 36px;
+      background: var(--ink);
+    }
+
+    .pet-head {
+      position: absolute;
+      left: 36px;
+      bottom: 36px;
+      width: 30px;
+      height: 26px;
+      background: var(--ink);
+    }
+
+    .pet-eye {
+      position: absolute;
+      left: 54px;
+      bottom: 51px;
+      width: 5px;
+      height: 5px;
+      background: white;
+    }
+
+    .pet-leg-one,
+    .pet-leg-two {
+      position: absolute;
+      bottom: 0;
+      width: 8px;
+      height: 14px;
+      background: var(--ink);
+      animation: legs 0.25s steps(2) infinite;
+    }
+
+    .pet-leg-one {
+      left: 20px;
+    }
+
+    .pet-leg-two {
+      left: 42px;
+      animation-delay: 0.12s;
+    }
+
+    .pet-tail {
+      position: absolute;
+      left: 0;
+      bottom: 24px;
+      width: 18px;
+      height: 8px;
+      background: var(--ink);
+    }
+
+    @keyframes legs {
+      0% { height: 14px; }
+      100% { height: 8px; }
+    }
+
+    .cactus {
+      position: absolute;
+      right: 56px;
+      bottom: 14px;
+      width: 18px;
+      height: 48px;
+      background: var(--ink);
+    }
+
+    .cactus::before,
+    .cactus::after {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 24px;
+      border: 6px solid var(--ink);
+      border-bottom: 0;
+      background: white;
+      top: 10px;
+    }
+
+    .cactus::before {
+      left: -18px;
+    }
+
+    .cactus::after {
+      right: -18px;
+    }
+
+    .runaway {
+      position: relative;
+    }
+
+    .panic {
+      animation: panic 0.12s infinite alternate;
+    }
+
+    @keyframes panic {
+      from { transform: translateY(0) rotate(-2deg); }
+      to { transform: translateY(-4px) rotate(2deg); }
+    }
+
+    .exploded .pet-body,
+    .exploded .pet-head,
+    .exploded .pet-eye,
+    .exploded .pet-leg-one,
+    .exploded .pet-leg-two,
+    .exploded .pet-tail {
+      display: none;
+    }
+
+    .boom {
+      display: none;
+      position: absolute;
+      left: 8px;
+      bottom: 18px;
+      font-size: 54px;
+      font-weight: bold;
+      animation: boom 0.8s steps(3) infinite;
+    }
+
+    .exploded .boom {
+      display: block;
+    }
+
+    @keyframes boom {
+      0% { transform: scale(1) rotate(-3deg); }
+      50% { transform: scale(1.15) rotate(3deg); }
+      100% { transform: scale(1) rotate(-3deg); }
+    }
+
+    .expired-message {
+      display: none;
+      border: 3px solid var(--line);
+      padding: 16px;
+      margin-top: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .expired-message.show {
+      display: block;
+    }
+
+    .small {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 520px) {
+      .app {
+        padding: 18px;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .timer {
+        letter-spacing: -2px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="app">
+    <div class="top-label">Esperimento anti-procrastinazione</div>
+
+    <section id="setupScreen" class="screen active">
+      <h1>Indecision Timer</h1>
+      <p class="subtitle">
+        Rispondi a poche domande. Il timer deciderà quanto puoi ancora fingere
+        che questa decisione non esista.
+      </p>
+
+      <div class="field">
+        <label for="decisionText">Che decisione devi prendere?</label>
+        <input id="decisionText" type="text" placeholder="Es. Devo accettare quel lavoro?" />
+      </div>
+
+      <div class="field">
+        <label for="importance">Quanto è importante?</label>
+        <select id="importance">
+          <option value="15">Poco. Posso sopravvivere.</option>
+          <option value="60">Abbastanza importante.</option>
+          <option value="180">Molto importante.</option>
+          <option value="480">Esistenziale. Sto fissando il soffitto.</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="reversibility">Quanto è reversibile?</label>
+        <select id="reversibility">
+          <option value="10">Molto reversibile.</option>
+          <option value="45">Un po’ reversibile.</option>
+          <option value="120">Difficile tornare indietro.</option>
+          <option value="300">Praticamente scolpita nella pietra.</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="people">Quante persone coinvolge?</label>
+        <select id="people">
+          <option value="5">Solo me.</option>
+          <option value="30">Me e un’altra persona.</option>
+          <option value="90">Un piccolo gruppo.</option>
+          <option value="240">Troppe persone. Aiuto.</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="delay">Da quanto la stai rimandando?</label>
+        <select id="delay">
+          <option value="0">Da oggi.</option>
+          <option value="-20">Da qualche giorno.</option>
+          <option value="-60">Da settimane.</option>
+          <option value="-180">Da un’era geologica.</option>
+        </select>
+      </div>
+
+      <div class="buttons">
+        <button class="primary" onclick="startTimer()">Calcola la mia condanna</button>
+        <button onclick="fillExample()">Non so nemmeno cosa scrivere</button>
+      </div>
+
+      <div class="game-area" aria-hidden="true">
+        <div class="pet">
+          <div class="pet-tail"></div>
+          <div class="pet-body"></div>
+          <div class="pet-head"></div>
+          <div class="pet-eye"></div>
+          <div class="pet-leg-one"></div>
+          <div class="pet-leg-two"></div>
+          <div class="boom">BOOM</div>
+        </div>
+        <div class="cactus"></div>
+        <div class="ground-dash"></div>
+      </div>
+    </section>
+
+    <section id="timerScreen" class="screen">
+      <h1>Decidi.</h1>
+
+      <p>Decisione ufficialmente sotto osservazione:</p>
+      <div id="decisionLabel" class="decision-name"></div>
+
+      <div id="timer" class="timer">00:00:00</div>
+
+      <p id="statusText" class="small">
+        Il timer è salvato nel browser. Chiudere la pagina non fermerà il senso di colpa.
+      </p>
+
+      <div class="buttons">
+        <button class="primary" onclick="decisionMade()">Ho deciso</button>
+        <button id="delayButton" class="runaway">Rimanda</button>
+        <button onclick="resetAll()">Ricomincia</button>
+      </div>
+
+      <div id="expiredMessage" class="expired-message">
+        Tempo scaduto. L’animaletto ha pagato il prezzo della tua indecisione.
+      </div>
+
+      <div class="tip-box">
+        <strong>Consiglio decisionale del giorno:</strong>
+        <div id="dailyTip"></div>
+      </div>
+
+      <div class="game-area" aria-hidden="true">
+        <div id="pet" class="pet">
+          <div class="pet-tail"></div>
+          <div class="pet-body"></div>
+          <div class="pet-head"></div>
+          <div class="pet-eye"></div>
+          <div class="pet-leg-one"></div>
+          <div class="pet-leg-two"></div>
+          <div class="boom">BOOM</div>
+        </div>
+        <div class="cactus"></div>
+        <div class="ground-dash"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const setupScreen = document.getElementById("setupScreen");
+    const timerScreen = document.getElementById("timerScreen");
+    const timerElement = document.getElementById("timer");
+    const decisionLabel = document.getElementById("decisionLabel");
+    const delayButton = document.getElementById("delayButton");
+    const pet = document.getElementById("pet");
+    const expiredMessage = document.getElementById("expiredMessage");
+    const dailyTip = document.getElementById("dailyTip");
+    const statusText = document.getElementById("statusText");
+
+    let countdownInterval = null;
+    let delayAttempts = 0;
+
+    const tips = [
+      "Scrivi l’opzione migliore, quella peggiore e quella più realistica.",
+      "Chiediti: questa decisione conterà ancora tra sei mesi?",
+      "Se la scelta è reversibile, non trattarla come se fosse definitiva.",
+      "Dai un voto da 1 a 10 alle alternative. Poi chiediti perché non hai dato 10.",
+      "Una decisione imperfetta spesso batte una non-decisione perfettamente rimandata.",
+      "Stabilisci il costo del non decidere. A volte è più alto del costo di sbagliare.",
+      "Riduci le opzioni a due. Troppe alternative sono benzina per l’indecisione.",
+      "Chiediti cosa consiglieresti a un amico nella tua stessa situazione.",
+      "Cerca un’informazione mancante, non dieci. Una basta per sbloccarti.",
+      "Se sei stanco, affamato o arrabbiato, non decidere: regola prima il sistema operativo."
+    ];
+
+    function showScreen(screen) {
+      setupScreen.classList.remove("active");
+      timerScreen.classList.remove("active");
+      screen.classList.add("active");
+    }
+
+    function getDailyTip() {
+      const now = new Date();
+      const start = new Date(now.getFullYear(), 0, 0);
+      const day = Math.floor((now - start) / 86400000);
+      return tips[day % tips.length];
+    }
+
+    function startTimer() {
+      const decisionText = document.getElementById("decisionText").value.trim() || "Decisione non specificata, molto sospetta";
+
+      const importance = Number(document.getElementById("importance").value);
+      const reversibility = Number(document.getElementById("reversibility").value);
+      const people = Number(document.getElementById("people").value);
+      const delay = Number(document.getElementById("delay").value);
+
+      let totalMinutes = importance + reversibility + people + delay;
+
+      if (totalMinutes < 5) {
+        totalMinutes = 5;
+      }
+
+      if (totalMinutes > 1440) {
+        totalMinutes = 1440;
+      }
+
+      const deadline = Date.now() + totalMinutes * 60 * 1000;
+
+      localStorage.setItem("indecisionDeadline", String(deadline));
+      localStorage.setItem("indecisionText", decisionText);
+
+      loadTimer();
+    }
+
+    function loadTimer() {
+      const deadline = Number(localStorage.getItem("indecisionDeadline"));
+      const savedDecision = localStorage.getItem("indecisionText");
+
+      if (!deadline || !savedDecision) {
+        showScreen(setupScreen);
+        return;
+      }
+
+      decisionLabel.textContent = savedDecision;
+      dailyTip.textContent = getDailyTip();
+      showScreen(timerScreen);
+
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+      }
+
+      updateCountdown();
+      countdownInterval = setInterval(updateCountdown, 1000);
+    }
+
+    function updateCountdown() {
+      const deadline = Number(localStorage.getItem("indecisionDeadline"));
+      const remaining = deadline - Date.now();
+
+      if (remaining <= 0) {
+        timerElement.textContent = "00:00:00";
+        expireTimer();
+        clearInterval(countdownInterval);
+        return;
+      }
+
+      const totalSeconds = Math.floor(remaining / 1000);
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      timerElement.textContent =
+        String(hours).padStart(2, "0") + ":" +
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+    }
+
+    function expireTimer() {
+      pet.classList.add("exploded");
+      expiredMessage.classList.add("show");
+      statusText.textContent = "Hai ufficialmente trasformato una scelta in un evento traumatico pixelato.";
+    }
+
+    function decisionMade() {
+      localStorage.removeItem("indecisionDeadline");
+      localStorage.removeItem("indecisionText");
+
+      timerElement.textContent = "DECISO";
+      statusText.textContent = "Decisione presa. L’animaletto può vivere un altro giorno.";
+      expiredMessage.classList.remove("show");
+      pet.classList.remove("exploded");
+      delayButton.style.transform = "translate(0, 0)";
+      delayButton.textContent = "Rimanda";
+    }
+
+    function resetAll() {
+      localStorage.removeItem("indecisionDeadline");
+      localStorage.removeItem("indecisionText");
+      location.reload();
+    }
+
+    function fillExample() {
+      const examples = [
+        "Devo rispondere a quel messaggio?",
+        "Compro o non compro questa cosa inutile?",
+        "Cambio idea per la quarta volta?",
+        "Accetto l’invito o invento un malessere creativo?",
+        "Pubblico questo contenuto o lo tengo nelle bozze fino al 2037?"
+      ];
+
+      const randomExample = examples[Math.floor(Math.random() * examples.length)];
+      document.getElementById("decisionText").value = randomExample;
+    }
+
+    function moveDelayButton() {
+      delayAttempts += 1;
+
+      const maxX = 160;
+      const maxY = 90;
+
+      const x = Math.floor(Math.random() * maxX * 2) - maxX;
+      const y = Math.floor(Math.random() * maxY * 2) - maxY;
+
+      delayButton.style.transform = `translate(${x}px, ${y}px)`;
+
+      const messages = [
+        "Rimanda",
+        "No.",
+        "Bel tentativo.",
+        "Non oggi.",
+        "Decidi.",
+        "Il bottone ti giudica."
+      ];
+
+      delayButton.textContent = messages[delayAttempts % messages.length];
+
+      pet.classList.add("panic");
+      setTimeout(() => pet.classList.remove("panic"), 500);
+    }
+
+    delayButton.addEventListener("mouseenter", moveDelayButton);
+    delayButton.addEventListener("touchstart", function(event) {
+      event.preventDefault();
+      moveDelayButton();
+    });
+
+    window.addEventListener("load", loadTimer);
+  </script>
+</body>
+</html>
