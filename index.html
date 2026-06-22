@@ -2086,6 +2086,52 @@
       }
     }
 
+
+    /* Ripristino effetto nota aggiunta su (In) */
+    .main-title .scribble {
+      display: inline-block;
+      font-size: 0.48em;
+      letter-spacing: -1px;
+      opacity: 0.58;
+      color: var(--muted);
+      border: 2px dashed var(--line);
+      padding: 0.04em 0.13em 0.02em;
+      margin-right: 0.06em;
+      background: #fff;
+      box-shadow: 3px 3px 0 var(--line);
+      transform: rotate(-9deg) translateY(-0.28em);
+      transform-origin: center;
+      position: relative;
+      top: -0.05em;
+    }
+
+    .main-title .scribble::after {
+      content: "";
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      bottom: -0.12em;
+      border-bottom: 2px solid var(--line);
+      opacity: 0.55;
+      transform: rotate(-3deg);
+    }
+
+    @media (max-width: 720px) {
+      h1.main-title .scribble {
+        font-size: 0.5em !important;
+        opacity: 0.6 !important;
+        color: var(--muted) !important;
+        border: 2px dashed var(--line) !important;
+        padding: 0.04em 0.13em 0.02em !important;
+        margin-right: 0.06em !important;
+        background: #fff !important;
+        box-shadow: 3px 3px 0 var(--line) !important;
+        transform: rotate(-9deg) translateY(-0.28em) !important;
+        position: relative !important;
+        top: -0.05em !important;
+      }
+    }
+
   </style>
 </head>
 
