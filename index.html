@@ -2049,6 +2049,43 @@
       }
     }
 
+
+    @media (max-width: 720px) {
+      h1.main-title {
+        display: block !important;
+        max-width: 100% !important;
+        overflow: visible !important;
+        white-space: normal !important;
+        line-height: 0.9 !important;
+      }
+
+      h1.main-title .title-line-one,
+      h1.main-title .title-line-two {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        white-space: nowrap !important;
+      }
+
+      h1.main-title .title-line-two {
+        margin-top: 2px !important;
+      }
+
+      h1.main-title .scribble {
+        display: inline-block !important;
+        margin-left: 0 !important;
+        transform: rotate(-8deg) translateY(-3px) !important;
+        transform-origin: left center !important;
+      }
+    }
+
+    @media (max-width: 380px) {
+      h1.main-title {
+        font-size: clamp(32px, 16vw, 58px) !important;
+        letter-spacing: -3px !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -2062,7 +2099,7 @@
     <div class="top-label">Esperimento anti-procrastinazione</div>
 
     <section id="setupScreen" class="screen active">
-      <h1>Il&nbsp;Timer&nbsp;<span class="title-scribble">(In)</span>deciso</h1>
+      <h1 class="main-title"><span class="title-line-one">Il Timer</span><span class="title-line-two"><span class="scribble">(In)</span>deciso</span></h1>
 
       <p class="subtitle">
         Inserisci una decisione, ricevi una scadenza e prova a non rimandare.
