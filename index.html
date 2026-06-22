@@ -1726,6 +1726,21 @@
         position: static;
         margin-top: 12px;
       }
+
+      #setupScreen h1 {
+        white-space: nowrap;
+        font-size: clamp(31px, 12vw, 78px);
+        letter-spacing: -2.4px;
+      }
+
+      .title-scribble {
+        font-size: 0.38em;
+        padding: 0.01em 0.09em;
+        margin: 0 -0.08em;
+        transform: translateY(-0.38em) rotate(-10deg);
+        box-shadow: 2px 2px 0 var(--line);
+      }
+
     }
   
 
@@ -2018,7 +2033,7 @@
     <div class="top-label">Esperimento anti-procrastinazione</div>
 
     <section id="setupScreen" class="screen active">
-      <h1>Il Timer <span class="title-scribble">(In)</span>deciso</h1>
+      <h1>Il&nbsp;Timer&nbsp;<span class="title-scribble">(In)</span>deciso</h1>
 
       <p class="subtitle">
         Inserisci una decisione, ricevi una scadenza e prova a non rimandare.
@@ -2736,13 +2751,11 @@
       decisionError.classList.remove("show");
       setupStepOne.classList.remove("active");
       setupStepTwo.classList.add("active");
-      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     }
 
     function backToSetupStepOne() {
       setupStepTwo.classList.remove("active");
       setupStepOne.classList.add("active");
-      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     }
 
     function startTimer() {
